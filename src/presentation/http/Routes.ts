@@ -7,8 +7,8 @@ import DocsController from './controllers/DocsController'
 @injectable()
 export class Routes {
 	constructor(
-		@inject(tokens.ExampleRouter)
-		private exampleRouter: IRouter,
+		@inject(tokens.OrderRouter)
+		private orderRouter: IRouter,
 
 		@inject(tokens.DocsController)
 		private docsController: DocsController
@@ -18,6 +18,6 @@ export class Routes {
 		router.use('/api/docs', this.docsController.initDocs)
 		router.get('/api/docs', this.docsController.makeDocs)
 
-		router.use('/api', this.exampleRouter.setup())
+		router.use('/api', this.orderRouter.setup())
 	}
 }

@@ -14,40 +14,40 @@ childContainer.registerSingleton(tokens.DocsService, DocsService)
 childContainer.registerSingleton(tokens.DocsController, DocsController)
 childContainer.registerSingleton(tokens.PostgreSQLClient, PostgreSQLClient)
 
-// Example
-import ExampleRepository from '@domain/example/infrastructure/ExampleRepository'
-import ExampleService from '@domain/example/services/ExampleService'
-import ExampleAppService from '@application/example/ExampleAppService'
-import GetAllExamplesController from '@presentation/http/controllers/example/GetAllExamplesController'
-import GetOneExampleController from '@presentation/http/controllers/example/GetOneExampleController'
-import CreateExampleController from '@presentation/http/controllers/example/CreateExampleController'
-import UpdateExampleController from '@presentation/http/controllers/example/UpdateExampleController'
-import DeleteExampleController from '@presentation/http/controllers/example/DeleteExampleController'
-import { ExampleRouter } from '@presentation/http/routes/ExampleRouter'
+// Order
+import OrderRepository from '@domain/order/infrastructure/OrderRepository'
+import OrderService from '@domain/order/services/OrderService'
+import OrderAppService from '@application/order/OrderAppService'
+import GetAllOrdersController from '@presentation/http/controllers/order/GetAllOrdersController'
+import GetOneOrderController from '@presentation/http/controllers/order/GetOneOrderController'
+import CreateOrderController from '@presentation/http/controllers/order/CreateOrderController'
+import UpdateOrderController from '@presentation/http/controllers/order/UpdateOrderController'
+import DeleteOrderController from '@presentation/http/controllers/order/DeleteOrderController'
+import { OrderRouter } from '@presentation/http/routes/OrderRouter'
 
-childContainer.registerSingleton(tokens.ExampleRepository, ExampleRepository)
-childContainer.registerSingleton(tokens.ExampleService, ExampleService)
-childContainer.registerSingleton(tokens.ExampleAppService, ExampleAppService)
+childContainer.registerSingleton(tokens.OrderRepository, OrderRepository)
+childContainer.registerSingleton(tokens.OrderService, OrderService)
+childContainer.registerSingleton(tokens.OrderAppService, OrderAppService)
 childContainer.registerSingleton(
-	tokens.GetAllExamplesController,
-	GetAllExamplesController
+	tokens.GetAllOrdersController,
+	GetAllOrdersController
 )
 childContainer.registerSingleton(
-	tokens.GetOneExampleController,
-	GetOneExampleController
+	tokens.GetOneOrderController,
+	GetOneOrderController
 )
 childContainer.registerSingleton(
-	tokens.CreateExampleController,
-	CreateExampleController
+	tokens.CreateOrderController,
+	CreateOrderController
 )
 childContainer.registerSingleton(
-	tokens.UpdateExampleController,
-	UpdateExampleController
+	tokens.UpdateOrderController,
+	UpdateOrderController
 )
 childContainer.registerSingleton(
-	tokens.DeleteExampleController,
-	DeleteExampleController
+	tokens.DeleteOrderController,
+	DeleteOrderController
 )
-childContainer.registerSingleton(tokens.ExampleRouter, ExampleRouter)
+childContainer.registerSingleton(tokens.OrderRouter, OrderRouter)
 
 export { childContainer as container }

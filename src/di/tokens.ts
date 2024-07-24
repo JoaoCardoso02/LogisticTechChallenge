@@ -5,14 +5,14 @@ export const tokens = {
 	DocsController: Symbol('DocsController'),
 	PostgreSQLClient: Symbol('PostgreSQLClient'),
 
-	// Example
-	ExampleRepository: Symbol('ExampleRepository'),
-	ExampleService: Symbol('ExampleService'),
-	ExampleAppService: Symbol('ExampleAppService'),
-	GetAllExamplesController: Symbol('GetAllExamplesController'),
-	GetOneExampleController: Symbol('GetOneExampleController'),
-	CreateExampleController: Symbol('CreateExampleController'),
-	UpdateExampleController: Symbol('UpdateExampleController'),
-	DeleteExampleController: Symbol('DeleteExampleController'),
-	ExampleRouter: Symbol('ExampleRouter'),
+	// Order
+	OrderRepository: Symbol('OrderRepository'),
+	OrderService: Symbol('OrderService'),
+	OrderAppService: Symbol('OrderAppService'),
+	GetAllOrdersController: Symbol('GetAllOrdersController'),
+	GetOneOrderController: Symbol('GetOneOrderController'),
+	CreateOrderController: Symbol('CreateOrderController'),
+	UpdateOrderController: Symbol('UpdateOrderController'),
+	DeleteOrderController: Symbol('DeleteOrderController'),
+	OrderRouter: Symbol('OrderRouter'),
 }

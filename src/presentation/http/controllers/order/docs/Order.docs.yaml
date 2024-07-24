@@ -1,0 +1,125 @@
+
+paths:
+  /api/v1/orders/:
+    get:
+      tags:
+        - Order
+      summary: get all orders
+      produces:
+      - application/json
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/orders'
+          description: A list of objects with user details
+    post:
+      tags:
+        - Order
+      summary: crate an order
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body to create an order
+        schema:
+          $ref: '#/definitions/createOrder' 
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/order'
+          description: An object with order details
+  /api/v1/orders/{id}:
+    get:
+      tags:
+        - Order
+      summary: get one order by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/order'
+          description: An object with user details
+    patch:
+      tags:
+        - Order
+      summary: update an order by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+      - in: body
+        name: body to update an order
+        schema:
+          $ref: '#/definitions/createOrder'
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/order'
+          description: An object with user details updated
+    delete:
+      tags:
+        - Order
+      summary: delete an order by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+      responses:
+        204:
+          description: The order was deleted successfully
+definitions:
+  order:
+    type: object
+    properties:
+      type:
+        type: string
+        order: ELETRONICS
+      weight:
+        type: number
+        order: 20
+      originId:
+        type: string
+        order: 1
+      destinationId:
+        type: string
+        order: 2
+      id:
+        type: number
+        order: 1
+  orders:
+    type: array
+    items:
+      type: object
+      properties:
+        schema:
+          $ref: '#/definitions/order'
+  createOrder:
+    type: object
+    properties:
+      type:
+        type: string
+        order: ELETRONICS
+      weight:
+        type: number
+        order: 20
+      originId:
+        type: string
+        order: 1
+      destinationId:
+        type: string
+        order: 2
