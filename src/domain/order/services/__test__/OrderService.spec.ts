@@ -1,5 +1,7 @@
 import {
 	orderMock,
+	orderToCreateMock,
+	orderToUpdateMock,
 	orderUpdatedMock,
 } from '@domain/order/__mocks__/Order'
 import OrderService from '@domain/order/services/OrderService'
@@ -52,12 +54,7 @@ describe('OrderService', () => {
 	it('should create one Order successfully', async () => {
 		const { sut } = makeSut()
 
-		const result = await sut.create({
-			weight: 20,
-			type: 'fake type',
-			originId: 1,
-			destinationId: 2,
-		})
+		const result = await sut.create(orderToCreateMock)
 
 		expect(result).toEqual(orderMock)
 	})
@@ -65,12 +62,7 @@ describe('OrderService', () => {
 	it('should update one Order by id successfully', async () => {
 		const { sut } = makeSut()
 
-		const result = await sut.update(1, {
-			weight: 30,
-			type: 'fake type to update',
-			originId: 1,
-			destinationId: 2,
-		})
+		const result = await sut.update(1, orderToUpdateMock)
 
 		expect(result).toEqual(orderUpdatedMock)
 	})

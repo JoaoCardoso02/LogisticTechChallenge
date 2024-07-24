@@ -15,4 +15,8 @@ export const tokens = {
 	UpdateOrderController: Symbol('UpdateOrderController'),
 	DeleteOrderController: Symbol('DeleteOrderController'),
 	OrderRouter: Symbol('OrderRouter'),
+
+	// Location
+	LocationRepository: Symbol('LocationRepository'),
+	LocationService: Symbol('LocationService'),
 }
