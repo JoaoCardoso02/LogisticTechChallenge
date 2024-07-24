@@ -1,9 +1,10 @@
 import { tokens } from '@di/tokens'
 import { inject, injectable } from 'tsyringe'
 
-import Example from '@domain/example/entities/Example'
+import Example from '@domain/example/entities/Example.entity'
 import { IExampleService } from '@domain/example/types/IExampleService'
 import { ICreateExample } from '@domain/example/types/ICreateExample'
+import { IUpdateExample } from '@domain/example/types/IUpdateExample'
 
 @injectable()
 export default class ExampleAppService {
@@ -24,7 +25,7 @@ export default class ExampleAppService {
 		return await this.exampleService.create(data)
 	}
 
-	async update(id: number, data: ICreateExample): Promise<Example | null> {
+	async update(id: number, data: IUpdateExample): Promise<Example | null> {
 		return await this.exampleService.update(id, data)
 	}
 

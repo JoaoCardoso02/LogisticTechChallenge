@@ -1,10 +1,11 @@
 import { tokens } from '@di/tokens'
-import Example from '@domain/example/entities/Example'
+import Example from '@domain/example/entities/Example.entity'
 import { IExampleRepository } from '@domain/example/types/IExampleRepository'
 import { ICreateExample } from '@domain/example/types/ICreateExample'
 import { PostgreSQLClient } from '@infrastructure/postgresql/PostgreSQLClient'
 import { inject, injectable } from 'tsyringe'
 import { Repository } from 'typeorm'
+import { IUpdateExample } from '../types/IUpdateExample'
 
 @injectable()
 export default class ExampleRepository implements IExampleRepository {
@@ -30,7 +31,7 @@ export default class ExampleRepository implements IExampleRepository {
 		return newExample
 	}
 
-	async update(id: number, example: ICreateExample): Promise<Example | null> {
+	async update(id: number, example: IUpdateExample): Promise<Example | null> {
 		await this.client.update({ id: id }, example)
 
 		return this.getOne(id);

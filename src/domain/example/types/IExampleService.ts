@@ -1,4 +1,4 @@
-import Example from '@domain/example/entities/Example'
+import Example from '@domain/example/entities/Example.entity'
 import { ICreateExample } from '@domain/example/types/ICreateExample'
 
 export interface IExampleService {

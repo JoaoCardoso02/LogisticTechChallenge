@@ -4,9 +4,9 @@ import { tokens } from '@di/tokens'
 import BaseController from '@shared/http/controller/BaseController'
 import ExampleAppService from '@application/example/ExampleAppService'
 
-import { ICreateExample } from '@domain/example/types/ICreateExample'
 import { IRequest } from '@presentation/http/types/IRequest'
 import { BaseError } from '@shared/exceptions/BaseError'
+import { IUpdateExample } from '@domain/example/types/IUpdateExample'
 
 @injectable()
 export default class UpdateExampleController extends BaseController {
@@ -25,7 +25,7 @@ export default class UpdateExampleController extends BaseController {
 			const result = await this.exampleAppService.update(Number(id), {
 				name,
 				age,
-			} as ICreateExample)
+			} as IUpdateExample)
 
 			return this.send(result)
 		} catch (err) {

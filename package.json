@@ -17,6 +17,10 @@
     "format:write": "prettier --write src",
     "lint:check": "eslint -c .eslintrc --ext .ts src",
     "lint:fix": "eslint -c .eslintrc --fix --ext .ts src",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/infrastructure/postgresql/PostgreSQLConnection.ts",
+    "migration:up": "typeorm-ts-node-commonjs migration:run -d src/infrastructure/postgresql/PostgreSQLConnection.ts",
+    "migration:down": "typeorm-ts-node-commonjs migration:revert -d src/infrastructure/postgresql/PostgreSQLConnection.ts",
     "prepare": "husky install"
   },
   "author": "",
