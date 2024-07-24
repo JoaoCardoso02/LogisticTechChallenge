@@ -24,8 +24,8 @@ const makeSut = () => {
 
 const request = {
 	body: {
-		name: exampleMock.getName(),
-		age: exampleMock.getAge(),
+		name: exampleMock.name,
+		age: exampleMock.age,
 	},
 } as unknown as IRequest
 
@@ -35,7 +35,7 @@ describe('CreateExampleController', () => {
 
 		const createSut = jest
 			.spyOn(exampleAppServiceStub, 'create')
-			.mockReturnValue(exampleMock)
+			.mockResolvedValue(exampleMock)
 
 		const sendSut = jest.spyOn(sut, 'send')
 

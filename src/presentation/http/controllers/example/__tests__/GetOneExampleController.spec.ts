@@ -34,7 +34,7 @@ describe('GetOneExampleController', () => {
 
 		const findOneSut = jest
 			.spyOn(exampleAppServiceStub, 'findOne')
-			.mockReturnValue(exampleMock)
+			.mockResolvedValue(exampleMock)
 
 		const sendSut = jest.spyOn(sut, 'send')
 

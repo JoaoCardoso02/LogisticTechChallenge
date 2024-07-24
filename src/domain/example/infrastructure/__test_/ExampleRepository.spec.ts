@@ -1,38 +1,38 @@
 import ExampleRepository from '@domain/example/infrastructure/ExampleRepository'
 import {
-	exampleCreatedRawMock,
-	exampleGotMock,
 	exampleMock,
+	exampleGotMock,
 	exampleToCreateMock,
 	exampleToUpdateMock,
-	exampleUpdatedRawMock,
+	exampleUpdatedMock,
+	exampleDeletedRawMock,
+	exampleFailDeleteRawMock,
 } from '@domain/example/__mocks__/Example'
-import { ObjectId } from 'mongodb'
 
-const makeMongoDBClient = () => {
-	const MongoDBClientStub = jest.fn().mockImplementation(() => ({
-		getCollection: jest.fn().mockReturnThis(),
-		find: jest.fn().mockReturnThis(),
-		toArray: jest.fn().mockResolvedValue([exampleGotMock]),
-		findOne: jest.fn().mockResolvedValue(exampleGotMock),
-		insertOne: jest.fn().mockResolvedValue(exampleCreatedRawMock),
-		updateOne: jest.fn().mockResolvedValue(exampleUpdatedRawMock),
-		deleteOne: jest.fn(),
+const makePostgreSQLClient = () => {
+	const PostgreSQLClientStub = jest.fn().mockImplementation(() => ({
+		find: jest.fn().mockResolvedValue([exampleGotMock]),
+		findOneBy: jest.fn().mockResolvedValue(exampleGotMock),
+		save: jest.fn().mockResolvedValue(exampleMock),
+		update: jest.fn(),
+		delete: jest.fn().mockResolvedValue(exampleDeletedRawMock),
+		getRepository: jest.fn().mockReturnThis(),
 	}))
 
-	return new MongoDBClientStub()
+	return new PostgreSQLClientStub()
 }
 
 const makeSut = () => {
-	const mongoDBClientStub = makeMongoDBClient()
-	const sut = new ExampleRepository(mongoDBClientStub)
+	const postgreSQLClientStub = makePostgreSQLClient()
+	const sut = new ExampleRepository(postgreSQLClientStub)
 	return {
 		sut,
-		mongoDBClientStub,
+		postgreSQLClientStub,
 	}
 }
 
-const id = '62f18cb08ac475faddd4559e'
+const id = 1
+id;
 
 describe('ExampleRepository', () => {
 	it('should create an ExampleRepository instance successfully', () => {
@@ -43,9 +43,9 @@ describe('ExampleRepository', () => {
 
 	describe('GetAll', () => {
 		it('should return an empty array if does not exist any examples', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+			const { sut, postgreSQLClientStub } = makeSut()
 
-			jest.spyOn(mongoDBClientStub, 'toArray').mockResolvedValueOnce([])
+			jest.spyOn(postgreSQLClientStub, 'find').mockResolvedValueOnce([])
 
 			const result = await sut.getAll()
 
@@ -53,139 +53,147 @@ describe('ExampleRepository', () => {
 		})
 
 		it('should return a list of examples', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+			const { sut, postgreSQLClientStub } = makeSut()
 
-			const findSpy = jest.spyOn(mongoDBClientStub, 'find')
+			const findSpy = jest.spyOn(postgreSQLClientStub, 'find')
 
 			const result = await sut.getAll()
 
-			expect(findSpy).toBeCalledWith({})
+			expect(findSpy).toBeCalled()
 			expect(result).toEqual([exampleMock])
 		})
 
 		it('should throw if find method fails', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+			const { sut, postgreSQLClientStub } = makeSut()
 
 			const findSpy = jest
-				.spyOn(mongoDBClientStub, 'find')
+				.spyOn(postgreSQLClientStub, 'find')
 				.mockRejectedValue(new Error('some error'))
 
-			sut.getAll()
+			const result = sut.getAll()
 
-			await expect(findSpy).rejects.toThrow()
+			expect(findSpy).toBeCalled()
+			await expect(result).rejects.toThrow()
 		})
 	})
 
 	describe('GetOne', () => {
-		it('should throw a NotFound exception if example does not exist', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
-
-			jest.spyOn(mongoDBClientStub, 'findOne').mockResolvedValueOnce(null)
-
-			const result = sut.getOne(id)
-
-			expect(result).rejects.toThrow()
-		})
 
 		it('should create an example and returns it', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+			const { sut, postgreSQLClientStub } = makeSut()
 
-			const findOneSpy = jest.spyOn(mongoDBClientStub, 'findOne')
+			const findOneBySpy = jest.spyOn(postgreSQLClientStub, 'findOneBy')
 
 			const result = await sut.getOne(id)
 
-			expect(findOneSpy).toBeCalledWith({ _id: new ObjectId(id) })
+			expect(findOneBySpy).toBeCalledWith({ id })
 			expect(result).toEqual(exampleMock)
 		})
 
-		it('should throw if finOne method fails', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+		it('should throw if findOne method fails', async () => {
+			const { sut, postgreSQLClientStub } = makeSut()
 
-			const findOneSpy = jest
-				.spyOn(mongoDBClientStub, 'findOne')
+			const findOneBySpy = jest
+				.spyOn(postgreSQLClientStub, 'findOneBy')
 				.mockRejectedValue(new Error('some error'))
 
-			sut.getOne(id)
+			const result = sut.getOne(id)
 
-			await expect(findOneSpy).rejects.toThrow()
+			expect(findOneBySpy).toBeCalledWith({ id })
+			await expect(result).rejects.toThrow()
 		})
 	})
 
 	describe('Create', () => {
 		it('should create an example successfully', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+			const { sut, postgreSQLClientStub } = makeSut()
 
-			const insertOneSpy = jest.spyOn(mongoDBClientStub, 'insertOne')
+			const saveSpy = jest.spyOn(postgreSQLClientStub, 'save')
 
 			const result = await sut.create(exampleToCreateMock)
 
-			expect(insertOneSpy).toBeCalledWith(exampleToCreateMock)
+			expect(saveSpy).toBeCalledWith(exampleToCreateMock)
 			expect(result).toEqual(exampleMock)
 		})
 
 		it('should throw if create method fails', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+			const { sut, postgreSQLClientStub } = makeSut()
 
-			const insertOneSpy = jest
-				.spyOn(mongoDBClientStub, 'insertOne')
+			const saveSpy = jest
+				.spyOn(postgreSQLClientStub, 'save')
 				.mockRejectedValue(new Error('some error'))
 
-			sut.create(exampleToCreateMock)
+			const result = sut.create(exampleToCreateMock)
 
-			await expect(insertOneSpy).rejects.toThrow()
+			expect(saveSpy).toBeCalledWith(exampleToCreateMock)
+			await expect(result).rejects.toThrow()
 		})
 	})
 
 	describe('Update', () => {
 		it('should update an example successfully', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+			const { sut, postgreSQLClientStub } = makeSut()
 
-			const updateOneSpy = jest.spyOn(mongoDBClientStub, 'updateOne')
+			const updateSpy = jest.spyOn(postgreSQLClientStub, 'update')
+			const getOneSpy = jest.spyOn(sut, 'getOne').mockResolvedValueOnce(exampleUpdatedMock)
 
 			const result = await sut.update(id, exampleToUpdateMock)
 
-			expect(updateOneSpy).toBeCalledWith(
-				{ _id: new ObjectId(id) },
-				{ $set: exampleToUpdateMock }
+			expect(updateSpy).toBeCalledWith(
+				{ id },
+				exampleToUpdateMock
 			)
-			expect(result).toEqual(exampleMock)
+			expect(getOneSpy).toBeCalledWith(id)
+			expect(result).toEqual(exampleUpdatedMock)
 		})
 
 		it('should throw if update method fails', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+			const { sut, postgreSQLClientStub } = makeSut()
 
-			const insertOneSpy = jest
-				.spyOn(mongoDBClientStub, 'insertOne')
+			jest
+				.spyOn(postgreSQLClientStub, 'update')
 				.mockRejectedValue(new Error('some error'))
 
-			sut.update(id, exampleToUpdateMock)
+			const result = sut.update(id, exampleToUpdateMock)
 
-			await expect(insertOneSpy).rejects.toThrow()
+			await expect(result).rejects.toThrow()
 		})
 	})
 
 	describe('Delete', () => {
 		it('should delete an example successfully', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+			const { sut, postgreSQLClientStub } = makeSut()
 
-			const deleteOneSpy = jest.spyOn(mongoDBClientStub, 'deleteOne')
+			const deleteSpy = jest.spyOn(postgreSQLClientStub, 'delete')
 
 			const result = await sut.delete(id)
 
-			expect(deleteOneSpy).toBeCalledWith({ _id: new ObjectId(id) })
+			expect(deleteSpy).toBeCalledWith({ id })
 			expect(result).toEqual(true)
 		})
 
-		it('should throw if delete method fails', async () => {
-			const { sut, mongoDBClientStub } = makeSut()
+		it('should return false if no example is deleted', async () => {
+			const { sut, postgreSQLClientStub } = makeSut()
 
 			jest
-				.spyOn(mongoDBClientStub, 'deleteOne')
-				.mockRejectedValue(new Error('some error'))
+				.spyOn(postgreSQLClientStub, 'delete')
+				.mockResolvedValue(exampleFailDeleteRawMock)
 
 			const result = await sut.delete(id)
 
 			expect(result).toEqual(false)
+		})
+
+		it('should throw if delete method fails', async () => {
+			const { sut, postgreSQLClientStub } = makeSut()
+
+			jest
+				.spyOn(postgreSQLClientStub, 'delete')
+				.mockRejectedValue(new Error('some error'))
+
+			const result = sut.delete(id)
+
+			await expect(result).rejects.toThrow()
 		})
 	})
 })

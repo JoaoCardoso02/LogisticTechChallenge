@@ -8,7 +8,6 @@ I'd liked to use this architecture because it is simple and good divided what be
 ```
 .
 ├── jest-integration-config.js
-├── jest-mongodb-config.js
 ├── jest-unit-config.js
 ├── jest.config.js
 ├── package-lock.json
@@ -34,8 +33,8 @@ I'd liked to use this architecture because it is simple and good divided what be
 │   ├── infrastructure
 │   │   ├── docs
 │   │   │   └── DocsService.ts
-│   │   └── mongodb
-│   │       ├── MongoDBClient.ts
+│   │   └── postgresql
+│   │       ├── PostgreSQLClient.ts
 │   ├── presentation
 │   │   └── http
 │   │       ├── controllers

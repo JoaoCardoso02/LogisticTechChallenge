@@ -19,7 +19,7 @@ export default class DeleteExampleController extends BaseController {
 		try {
 			const { id } = request.params
 
-			this.exampleAppService.delete(Number(id))
+			await this.exampleAppService.delete(Number(id))
 
 			return this.sendStatus(204)
 		} catch (err) {

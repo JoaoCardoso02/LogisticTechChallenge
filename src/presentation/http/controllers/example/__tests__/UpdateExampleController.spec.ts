@@ -27,8 +27,8 @@ const request = {
 		id: '123',
 	},
 	body: {
-		name: exampleMock.getName(),
-		age: exampleMock.getAge(),
+		name: exampleMock.name,
+		age: exampleMock.age,
 	},
 } as unknown as IRequest
 
@@ -38,7 +38,7 @@ describe('UpdateExampleController', () => {
 
 		const updateSut = jest
 			.spyOn(exampleAppServiceStub, 'update')
-			.mockReturnValue(exampleMock)
+			.mockResolvedValue(exampleMock)
 
 		const sendSut = jest.spyOn(sut, 'send')
 

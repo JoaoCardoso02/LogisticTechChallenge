@@ -1,80 +1,44 @@
 import { tokens } from '@di/tokens'
 import Example from '@domain/example/entities/Example'
+import { IExampleRepository } from '@domain/example/types/IExampleRepository'
 import { ICreateExample } from '@domain/example/types/ICreateExample'
-import { MongoDBClient } from '@infrastructure/mongodb/MongoDBClient'
-import { NotFoundException } from '@shared/exceptions/NotFoundException'
-import { ObjectId } from 'mongodb'
+import { PostgreSQLClient } from '@infrastructure/postgresql/PostgreSQLClient'
 import { inject, injectable } from 'tsyringe'
-import { IExampleRaw } from '../types/IExampleRaw'
+import { Repository } from 'typeorm'
 
 @injectable()
-export default class ExampleRepository {
-	private collectionName = 'examples'
+export default class ExampleRepository implements IExampleRepository {
+	private readonly client: Repository<Example>
 
 	constructor(
-		@inject(tokens.MongoDBClient)
-		private client: MongoDBClient
-	) {}
-
-	async getAll(): Promise<Example[]> {
-		const collection = await this.client.getCollection(this.collectionName)
-
-		const examples = await collection.find<IExampleRaw>({}).toArray()
-
-		return examples.map(
-			(example) =>
-				new Example({
-					...example,
-					id: example._id.toString(),
-				})
-		)
+		@inject(tokens.PostgreSQLClient)
+		psql: PostgreSQLClient,
+	) {
+		this.client = psql.getRepository(Example);
 	}
 
-	async getOne(id: string): Promise<Example | null> {
-		const collection = await this.client.getCollection(this.collectionName)
+	async getAll(): Promise<Example[]> {
+		return await this.client.find()
+	}
 
-		const example = await collection.findOne<IExampleRaw>({
-			_id: new ObjectId(id),
-		})
-
-		if (!example) {
-			throw new NotFoundException('Example was not found')
-		}
-
-		return new Example({
-			...example,
-			id: example._id.toString(),
-		})
+	async getOne(id: number): Promise<Example | null> {
+		return await this.client.findOneBy({ id })
 	}
 
 	async create(example: ICreateExample): Promise<Example> {
-		const collection = await this.client.getCollection(this.collectionName)
-
-		const exampleCreated = await collection.insertOne(example)
-
-		return (await this.getOne(exampleCreated.insertedId.toString())) as Example
+		const newExample = await this.client.save(example)
+		return newExample
 	}
 
-	async update(id: string, example: ICreateExample): Promise<Example> {
-		const collection = await this.client.getCollection(this.collectionName)
+	async update(id: number, example: ICreateExample): Promise<Example | null> {
+		await this.client.update({ id: id }, example)
 
-		const exampleUpdated = await collection.updateOne(
-			{ _id: new ObjectId(id) },
-			{ $set: example }
-		)
-
-		return (await this.getOne(exampleUpdated.upsertedId.toString())) as Example
+		return this.getOne(id);
 	}
 
-	async delete(id: string): Promise<boolean> {
-		try {
-			const collection = await this.client.getCollection(this.collectionName)
-
-			await collection.deleteOne({ _id: new ObjectId(id) })
-
-			return true
-		} catch {
-			return false
-		}
+	async delete(id: number): Promise<boolean> {
+		const result = await this.client.delete({ id })
+		if (!result.affected) return false
+		return true
 	}
 }

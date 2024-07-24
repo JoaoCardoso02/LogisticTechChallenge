@@ -16,7 +16,7 @@ describe('Example', () => {
 			name: 'fake name',
 		})
 
-		expect(sut.getName()).toBe('fake name')
+		expect(sut.name).toBe('fake name')
 	})
 
 	it('should get the age and this must be the same as the one passed in the instance', () => {
@@ -25,6 +25,6 @@ describe('Example', () => {
 			name: 'fake name',
 		})
 
-		expect(sut.getAge()).toBe(20)
+		expect(sut.age).toBe(20)
 	})
 })

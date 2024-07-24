@@ -33,7 +33,7 @@ describe('DeleteExampleController', () => {
 
 		const deleteSut = jest
 			.spyOn(exampleAppServiceStub, 'delete')
-			.mockReturnValue(true)
+			.mockResolvedValue(true)
 
 		const sendStatusSut = jest.spyOn(sut, 'sendStatus')
 

@@ -12,23 +12,23 @@ export default class ExampleAppService {
 		private exampleService: IExampleService
 	) {}
 
-	findAll(): Example[] {
-		return this.exampleService.findAll()
+	async findAll(): Promise<Example[]> {
+		return await this.exampleService.findAll()
 	}
 
-	findOne(id: number): Example | null {
-		return this.exampleService.findOne(id)
+	async findOne(id: number): Promise<Example | null> {
+		return await this.exampleService.findOne(id)
 	}
 
-	create(data: ICreateExample): Example {
-		return this.exampleService.create(data)
+	async create(data: ICreateExample): Promise<Example> {
+		return await this.exampleService.create(data)
 	}
 
-	update(id: number, data: ICreateExample): Example {
-		return this.exampleService.update(id, data)
+	async update(id: number, data: ICreateExample): Promise<Example | null> {
+		return await this.exampleService.update(id, data)
 	}
 
-	delete(id: number): boolean {
-		return this.exampleService.delete(id)
+	async delete(id: number): Promise<boolean> {
+		return await this.exampleService.delete(id)
 	}
 }

@@ -14,23 +14,23 @@ export default class ExampleService implements IExampleService {
 		private exampleRepository: IExampleRepository
 	) {}
 
-	findAll(): Example[] {
-		return this.exampleRepository.getAll()
+	async findAll(): Promise<Example[]> {
+		return await this.exampleRepository.getAll()
 	}
 
-	findOne(id: number): Example | null {
-		return this.exampleRepository.getOne(id)
+	async findOne(id: number): Promise<Example | null> {
+		return await this.exampleRepository.getOne(id)
 	}
 
-	create(example: ICreateExample): Example {
-		return this.exampleRepository.create(example)
+	async create(example: ICreateExample): Promise<Example> {
+		return await this.exampleRepository.create(example)
 	}
 
-	update(id: number, example: ICreateExample): Example {
-		return this.exampleRepository.update(id, example)
+	async update(id: number, example: ICreateExample): Promise<Example | null> {
+		return await this.exampleRepository.update(id, example)
 	}
 
-	delete(id: number): boolean {
-		return this.exampleRepository.delete(id)
+	async delete(id: number): Promise<boolean> {
+		return await this.exampleRepository.delete(id)
 	}
 }

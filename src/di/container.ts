@@ -7,12 +7,12 @@ const childContainer = container.createChildContainer()
 import { Routes } from '@presentation/http/Routes'
 import DocsService from '@infrastructure/docs/DocsService'
 import DocsController from '@presentation/http/controllers/DocsController'
-import { MongoDBClient } from '@infrastructure/mongodb/MongoDBClient'
+import { PostgreSQLClient } from '@infrastructure/postgresql/PostgreSQLClient'
 
 childContainer.registerSingleton(tokens.Routes, Routes)
 childContainer.registerSingleton(tokens.DocsService, DocsService)
 childContainer.registerSingleton(tokens.DocsController, DocsController)
-childContainer.registerSingleton(tokens.MongoDBClient, MongoDBClient)
+childContainer.registerSingleton(tokens.PostgreSQLClient, PostgreSQLClient)
 
 // Example
 import ExampleRepository from '@domain/example/infrastructure/ExampleRepository'

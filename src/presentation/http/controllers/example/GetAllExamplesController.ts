@@ -17,8 +17,7 @@ export default class GetAllExamplesController extends BaseController {
 
 	public async execute() {
 		try {
-			const result = this.exampleAppService.findAll()
-
+			const result = await this.exampleAppService.findAll()
 			return this.send(result)
 		} catch (err) {
 			return this.error(err as BaseError)

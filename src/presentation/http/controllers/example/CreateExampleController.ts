@@ -21,7 +21,7 @@ export default class CreateExampleController extends BaseController {
 		try {
 			const { name, age } = request.body
 
-			const result = this.exampleAppService.create({
+			const result = await this.exampleAppService.create({
 				name,
 				age,
 			} as ICreateExample)
