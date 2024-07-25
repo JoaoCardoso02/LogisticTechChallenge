@@ -27,7 +27,7 @@ export default class UpdateOrderController extends BaseController {
 				destinationId
 			} = request.body
 
-			const result = await this.orderAppService.update(Number(id), {
+			const result = await this.orderAppService.update(id, {
 				type,
 				weight,
 				originId,

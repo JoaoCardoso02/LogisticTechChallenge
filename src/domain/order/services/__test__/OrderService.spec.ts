@@ -46,7 +46,7 @@ describe('OrderService', () => {
 	it('should get one Orders by id successfully', async () => {
 		const { sut } = makeSut()
 
-		const result = await sut.findOne(1)
+		const result = await sut.findOne('uuid')
 
 		expect(result).toEqual(orderMock)
 	})
@@ -62,7 +62,7 @@ describe('OrderService', () => {
 	it('should update one Order by id successfully', async () => {
 		const { sut } = makeSut()
 
-		const result = await sut.update(1, orderToUpdateMock)
+		const result = await sut.update('uuid', orderToUpdateMock)
 
 		expect(result).toEqual(orderUpdatedMock)
 	})
@@ -70,7 +70,7 @@ describe('OrderService', () => {
 	it('should delete one Order successfully', async () => {
 		const { sut } = makeSut()
 
-		const result = await sut.delete(1)
+		const result = await sut.delete('uuid')
 
 		expect(result).toBeTruthy()
 	})

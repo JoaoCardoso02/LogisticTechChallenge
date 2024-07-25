@@ -47,7 +47,7 @@ describe('UpdateOrderController', () => {
 		await sut.execute(request)
 
 		expect(sendSut).toBeCalledWith(orderMock)
-		expect(updateSut).toBeCalledWith(Number(request.params.id), request.body)
+		expect(updateSut).toBeCalledWith(request.params.id, request.body)
 	})
 
 	it('should returns error if update method fails', async () => {
@@ -64,6 +64,6 @@ describe('UpdateOrderController', () => {
 		await sut.execute(request)
 
 		expect(errorSut).toBeCalledWith(new InternalException('some error'))
-		expect(updateSut).toBeCalledWith(Number(request.params.id), request.body)
+		expect(updateSut).toBeCalledWith(request.params.id, request.body)
 	})
 })

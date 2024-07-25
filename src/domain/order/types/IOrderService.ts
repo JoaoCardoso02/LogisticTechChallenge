@@ -3,8 +3,8 @@ import { ICreateOrder } from '@domain/order/types/ICreateOrder'
 
 export interface IOrderService {
 	findAll(): Promise<Order[]>
-	findOne(id: number): Promise<Order | null>
+	findOne(id: string): Promise<Order | null>
 	create(order: ICreateOrder): Promise<Order>
-	update(id: number, order: ICreateOrder): Promise<Order | null>
-	delete(id: number): Promise<boolean>
+	update(id: string, order: ICreateOrder): Promise<Order | null>
+	delete(id: string): Promise<boolean>
 }

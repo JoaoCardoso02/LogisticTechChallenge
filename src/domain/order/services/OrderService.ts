@@ -19,7 +19,7 @@ export default class OrderService implements IOrderService {
 		return await this.orderRepository.getAll()
 	}
 
-	async findOne(id: number): Promise<Order | null> {
+	async findOne(id: string): Promise<Order | null> {
 		return await this.orderRepository.getOne(id)
 	}
 
@@ -27,11 +27,11 @@ export default class OrderService implements IOrderService {
 		return await this.orderRepository.create(order)
 	}
 
-	async update(id: number, order: IUpdateOrder): Promise<Order | null> {
+	async update(id: string, order: IUpdateOrder): Promise<Order | null> {
 		return await this.orderRepository.update(id, order)
 	}
 
-	async delete(id: number): Promise<boolean> {
+	async delete(id: string): Promise<boolean> {
 		return await this.orderRepository.delete(id)
 	}
 }

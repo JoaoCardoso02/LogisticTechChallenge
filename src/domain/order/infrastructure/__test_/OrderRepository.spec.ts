@@ -31,8 +31,7 @@ const makeSut = () => {
 	}
 }
 
-const id = 1
-id;
+const id = 'uuid'
 
 describe('OrderRepository', () => {
 	it('should create an OrderRepository instance successfully', () => {

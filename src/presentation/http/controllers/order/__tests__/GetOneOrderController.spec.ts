@@ -41,7 +41,7 @@ describe('GetOneOrderController', () => {
 		await sut.execute(request)
 
 		expect(sendSut).toBeCalledWith(orderMock)
-		expect(findOneSut).toBeCalledWith(Number(request.params.id))
+		expect(findOneSut).toBeCalledWith(request.params.id)
 	})
 
 	it('should returns error if find one method fails', async () => {
@@ -58,6 +58,6 @@ describe('GetOneOrderController', () => {
 		await sut.execute(request)
 
 		expect(errorSut).toBeCalledWith(new InternalException('some error'))
-		expect(findOneSut).toBeCalledWith(Number(request.params.id))
+		expect(findOneSut).toBeCalledWith(request.params.id)
 	})
 })

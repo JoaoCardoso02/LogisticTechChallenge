@@ -19,7 +19,7 @@ export default class DeleteOrderController extends BaseController {
 		try {
 			const { id } = request.params
 
-			await this.orderAppService.delete(Number(id))
+			await this.orderAppService.delete(id)
 
 			return this.sendStatus(204)
 		} catch (err) {

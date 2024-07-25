@@ -40,7 +40,7 @@ describe('DeleteOrderController', () => {
 		await sut.execute(request)
 
 		expect(sendStatusSut).toBeCalledWith(204)
-		expect(deleteSut).toBeCalledWith(Number(request.params.id))
+		expect(deleteSut).toBeCalledWith(request.params.id)
 	})
 
 	it('should returns error if delete method fails', async () => {
@@ -57,6 +57,6 @@ describe('DeleteOrderController', () => {
 		await sut.execute(request)
 
 		expect(errorSut).toBeCalledWith(new InternalException('some error'))
-		expect(deleteSut).toBeCalledWith(Number(request.params.id))
+		expect(deleteSut).toBeCalledWith(request.params.id)
 	})
 })

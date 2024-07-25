@@ -1,5 +1,5 @@
 export interface IOrder {
-	id?: number
+	id?: string
 	type: string
 	weight: number
 	originId: number

@@ -22,7 +22,7 @@ export default class OrderRepository implements IOrderRepository {
 		return await this.client.find()
 	}
 
-	async getOne(id: number): Promise<Order | null> {
+	async getOne(id: string): Promise<Order | null> {
 		return await this.client.findOneBy({ id })
 	}
 
@@ -31,13 +31,13 @@ export default class OrderRepository implements IOrderRepository {
 		return newOrder
 	}
 
-	async update(id: number, order: IUpdateOrder): Promise<Order | null> {
+	async update(id: string, order: IUpdateOrder): Promise<Order | null> {
 		await this.client.update({ id: id }, order)
 
 		return this.getOne(id);
 	}
 
-	async delete(id: number): Promise<boolean> {
+	async delete(id: string): Promise<boolean> {
 		const result = await this.client.delete({ id })
 		if (!result.affected) return false
 		return true

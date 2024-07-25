@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 @Entity({ name: 'order' })
 export default class OrderEntity {
 	@PrimaryGeneratedColumn()
-	id: number
+	id: string
 
 	@Column()
 	type: string

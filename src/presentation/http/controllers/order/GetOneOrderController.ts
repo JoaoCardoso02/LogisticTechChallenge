@@ -20,7 +20,7 @@ export default class GetOneOrderController extends BaseController {
 		try {
 			const { id } = request.params
 
-			const result = await this.orderAppService.findOne(Number(id))
+			const result = await this.orderAppService.findOne(id)
 
 			return this.send(result)
 		} catch (err) {

@@ -1,5 +1,5 @@
 export const orderMock = {
-	id: 1,
+	id: 'uuid',
 	weight: 20,
 	type: 'fake type',
 	originId: 1,
@@ -7,7 +7,7 @@ export const orderMock = {
 }
 
 export const orderGotMock = {
-	id: 1,
+	id: 'uuid',
 	weight: 20,
 	type: 'fake type',
 	originId: 1,
@@ -15,7 +15,7 @@ export const orderGotMock = {
 }
 
 export const orderUpdatedMock = {
-	id: 1,
+	id: 'uuid',
 	weight: 30,
 	type: 'fake type to update',
 	originId: 1,

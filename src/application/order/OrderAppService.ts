@@ -17,7 +17,7 @@ export default class OrderAppService {
 		return await this.orderService.findAll()
 	}
 
-	async findOne(id: number): Promise<Order | null> {
+	async findOne(id: string): Promise<Order | null> {
 		return await this.orderService.findOne(id)
 	}
 
@@ -25,11 +25,11 @@ export default class OrderAppService {
 		return await this.orderService.create(data)
 	}
 
-	async update(id: number, data: IUpdateOrder): Promise<Order | null> {
+	async update(id: string, data: IUpdateOrder): Promise<Order | null> {
 		return await this.orderService.update(id, data)
 	}
 
-	async delete(id: number): Promise<boolean> {
+	async delete(id: string): Promise<boolean> {
 		return await this.orderService.delete(id)
 	}
 }
