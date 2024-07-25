@@ -31,6 +31,11 @@ export default class ProductRepository implements IProductRepository {
 		return newProduct
 	}
 
+	async createMany(products: ICreateProduct[]): Promise<Product[]> {
+		const newProduct = await this.client.save(products)
+		return newProduct
+	}
+
 	async update(id: string, product: IUpdateProduct): Promise<Product | null> {
 		await this.client.update({ id: id }, product)
 
@@ -39,6 +44,12 @@ export default class ProductRepository implements IProductRepository {
 
 	async delete(id: string): Promise<boolean> {
 		const result = await this.client.delete({ id })
+		if (!result.affected) return false
+		return true
+	}
+
+	async deleteByOrderId(orderId: string): Promise<boolean> {
+		const result = await this.client.delete({ orderId })
 		if (!result.affected) return false
 		return true
 	}

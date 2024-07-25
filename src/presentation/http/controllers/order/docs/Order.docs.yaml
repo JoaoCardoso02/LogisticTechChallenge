@@ -15,7 +15,7 @@ paths:
     post:
       tags:
         - Order
-      summary: crate an order
+      summary: create an order
       produces:
       - application/json
       parameters:
@@ -72,7 +72,7 @@ paths:
         - Order
       summary: delete an order by id
       produces:
-      - application/json
+        - application/json
       parameters:
       - in: path
         name: id
@@ -82,6 +82,16 @@ paths:
       responses:
         204:
           description: The order was deleted successfully
+  /api/v1/orders/run:
+    post:
+      tags:
+        - Order
+      summary: fetch external orders and create them
+      produces:
+        - application/json
+      responses:
+        204:
+          description: The orders were fetched and created successfully
 definitions:
   location:
     type: object
@@ -134,13 +144,13 @@ definitions:
       weight:
         type: number
         example: 20
-      origin:
+      pickup:
         type: object
         $ref: '#/definitions/location'
       destination:
         type: object
         $ref: '#/definitions/location'
-      products:
+      items:
         type: array
         items:
           type: object

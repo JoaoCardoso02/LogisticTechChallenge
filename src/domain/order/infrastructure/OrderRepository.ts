@@ -19,13 +19,20 @@ export default class OrderRepository implements IOrderRepository {
 	}
 
 	async getAll(): Promise<Order[]> {
-		return await this.client.find({ relations: { origin: true, destination: true, products: true } })
+		return await this.client.find({ relations: { pickup: true, destination: true, items: true } })
 	}
 
 	async getOne(id: string): Promise<Order | null> {
 		return await this.client.findOne({
 			where: { id },
-			relations: { origin: true, destination: true, products: true }
+			relations: { pickup: true, destination: true, items: true }
+		})
+	}
+
+	async getOneByExternalId(externalId: string): Promise<Order | null> {
+		return await this.client.findOne({
+			where: { externalId },
+			relations: { pickup: true, destination: true, items: true }
 		})
 	}
 

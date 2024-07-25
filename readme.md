@@ -1,9 +1,27 @@
-## API-FOUNDATION
+## API-LOGISTIC-TECH
 
-There is an starter development kit for my projects, there I have everything I need to start developing with out to worry with other things than the project code.
-I'd liked to use this architecture because it is simple and good divided what become more easy to implement, test and reuse code.
+It's a API related to manage orders information. Inside of orders we have what's the pickup and destination locations, beyond the products related to that order.
+Beyond the API, it also has a CRON JOB that runs at each 1 minute to fetch new orders and create them inside our database.
 
-### Project Structure
+### How to run the project?
+
+- You'll need to configure your .env file to reflect your PostgreSQL access information
+- ``npm install``
+- ``npm run migration:up``
+- ``npm run dev``
+
+### How to run the tests?
+
+- ``npm run test``
+- ``npm run test:verbose``
+
+### What would I improve on this project?
+
+- I would create a generic repository class that would contain all basic actions (e.g. getAll);
+- I would improve the error handling (CronJob and Http Requests);
+- I would improve the tests coverage (Many of them are really basic);
+- I would improve the way to work with the API integration and use streams to improve performance;
+- I would create a functionality to enable the order has more locations to enable multiple deliveres;
 
 ```
 .
@@ -33,9 +51,15 @@ I'd liked to use this architecture because it is simple and good divided what be
 │   ├── infrastructure
 │   │   ├── docs
 │   │   │   └── DocsService.ts
+│   │   ├── migrations
+│   │   │   └── **.ts
+│   │   ├── http
+│   │   │   └── HttpClient.ts
 │   │   └── postgresql
-│   │       ├── PostgreSQLClient.ts
+│   │       └── PostgreSQLClient.ts
 │   ├── presentation
+│   │   ├── job
+│   │   │   └── CronJob.ts
 │   │   └── http
 │   │       ├── controllers
 │   │       │   └── **

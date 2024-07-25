@@ -11,8 +11,10 @@ const makeProductRepositoryStub = () => {
 		getAll: jest.fn().mockResolvedValue([productMock]),
 		getOne: jest.fn().mockResolvedValue(productMock),
 		create: jest.fn().mockResolvedValue(productMock),
+		createMany: jest.fn().mockResolvedValue([productMock]),
 		update: jest.fn().mockResolvedValue(productUpdatedMock),
 		delete: jest.fn().mockResolvedValue(true),
+		deleteByOrderId: jest.fn().mockResolvedValue(true),
 	}
 
 	return ProductRepositoryStub
@@ -28,6 +30,9 @@ const makeSut = () => {
 	}
 }
 
+const id = 'ec12555f-44bc-4bfb-8f98-94053f2c73a2'
+const orderId = 'eecfba8f-ebaf-433a-9f14-413d7cebf804'
+
 describe('ProductService', () => {
 	it('should create an ProductService instance successfully', () => {
 		const { sut } = makeSut()
@@ -35,7 +40,7 @@ describe('ProductService', () => {
 		expect(sut).toBeInstanceOf(ProductService)
 	})
 
-	it('should get all Products successfully', async () => {
+	it('should get all products successfully', async () => {
 		const { sut } = makeSut()
 
 		const result = await sut.findAll()
@@ -43,15 +48,15 @@ describe('ProductService', () => {
 		expect(result).toEqual([productMock])
 	})
 
-	it('should get one Products by id successfully', async () => {
+	it('should get one products by id successfully', async () => {
 		const { sut } = makeSut()
 
-		const result = await sut.findOne('uuid')
+		const result = await sut.findOne(id)
 
 		expect(result).toEqual(productMock)
 	})
 
-	it('should create one Product successfully', async () => {
+	it('should create one product successfully', async () => {
 		const { sut } = makeSut()
 
 		const result = await sut.create(productToCreateMock)
@@ -59,18 +64,26 @@ describe('ProductService', () => {
 		expect(result).toEqual(productMock)
 	})
 
-	it('should update one Product by id successfully', async () => {
+	it('should update one product by id successfully', async () => {
 		const { sut } = makeSut()
 
-		const result = await sut.update('uuid', productToUpdateMock)
+		const result = await sut.update(id, productToUpdateMock)
 
 		expect(result).toEqual(productUpdatedMock)
 	})
 
-	it('should delete one Product successfully', async () => {
+	it('should delete one product successfully', async () => {
 		const { sut } = makeSut()
 
-		const result = await sut.delete('uuid')
+		const result = await sut.delete(id)
+
+		expect(result).toBeTruthy()
+	})
+
+	it('should delete products by order id successfully', async () => {
+		const { sut } = makeSut()
+
+		const result = await sut.delete(orderId)
 
 		expect(result).toBeTruthy()
 	})

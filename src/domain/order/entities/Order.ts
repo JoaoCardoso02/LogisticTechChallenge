@@ -5,13 +5,13 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn
 
 @Entity({ name: 'order' })
 export default class OrderEntity {
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn('uuid')
 	id: string
 
 	@Column()
 	type: string
 
-	@Column()
+	@Column({ nullable: true })
 	weight: number
 
 	@Column({ name: 'origin_id' })
@@ -20,7 +20,7 @@ export default class OrderEntity {
 
 	@OneToOne(() => LocationEntity, (location) => location.id)
 	@JoinColumn({ name: 'origin_id' })
-	origin: LocationEntity
+	pickup: LocationEntity
 
 	@Column({ name: 'destination_id' })
 	@Exclude()
@@ -31,5 +31,8 @@ export default class OrderEntity {
 	destination: LocationEntity
 
 	@OneToMany(() => ProductEntity, (product) => product.order, { eager: true })
-	products: ProductEntity[]
+	items: ProductEntity[]
+
+	@Column({ type: String, name: 'external_id', nullable: true, unique: true })
+	externalId: string | null
 }

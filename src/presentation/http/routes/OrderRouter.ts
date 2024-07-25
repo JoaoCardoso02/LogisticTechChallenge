@@ -24,7 +24,10 @@ export class OrderRouter extends BaseRouter implements IRouter {
 		private updateOrderController: BaseController,
 
 		@inject(tokens.DeleteOrderController)
-		private deleteOrderController: BaseController
+		private deleteOrderController: BaseController,
+
+		@inject(tokens.RunOrderJobController)
+		private runOrderJobController: BaseController,
 	) {
 		super(Router())
 	}
@@ -35,6 +38,7 @@ export class OrderRouter extends BaseRouter implements IRouter {
 		this.post('/v1/orders', this.createOrderController)
 		this.patch('/v1/orders/:id', this.updateOrderController)
 		this.delete('/v1/orders/:id', this.deleteOrderController)
+		this.post('/v1/orders/run', this.runOrderJobController)
 
 		return this.getRouter()
 	}

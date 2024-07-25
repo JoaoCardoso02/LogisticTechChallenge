@@ -4,7 +4,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 
 @Entity({ name: 'product' })
 export default class ProductEntity {
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn('uuid')
 	id: string
 
 	@Column()
@@ -26,7 +26,7 @@ export default class ProductEntity {
 	@Exclude()
 	orderId: string
 
-	@ManyToOne(() => OrderEntity, (order) => order.products, { eager: false })
+	@ManyToOne(() => OrderEntity, (order) => order.items, { eager: false, cascade: true })
 	@JoinColumn({ name: 'order_id' })
     order: OrderEntity
 }

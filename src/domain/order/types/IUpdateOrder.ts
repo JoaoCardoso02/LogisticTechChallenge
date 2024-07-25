@@ -1,3 +1,3 @@
 import { IOrder } from './IOrder'
 
-export type IUpdateOrder = Omit<IOrder, 'id'>
+export type IUpdateOrder = Omit<IOrder, 'id' | 'items'>

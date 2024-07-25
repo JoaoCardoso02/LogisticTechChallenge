@@ -1,21 +1,30 @@
 import { container } from 'tsyringe'
 import { tokens } from '@di/tokens'
 
+require('dotenv').config()
+
 const childContainer = container.createChildContainer()
 
 // Global
 import { Routes } from '@presentation/http/Routes'
+import { CronJob } from '@presentation/job/CronJob'
 import DocsService from '@infrastructure/docs/DocsService'
 import DocsController from '@presentation/http/controllers/DocsController'
 import { PostgreSQLClient } from '@infrastructure/postgresql/PostgreSQLClient'
+import HttpClient from '@infrastructure/http/HttpClient'
 
 childContainer.registerSingleton(tokens.Routes, Routes)
+childContainer.registerSingleton(tokens.CronJob, CronJob)
 childContainer.registerSingleton(tokens.DocsService, DocsService)
 childContainer.registerSingleton(tokens.DocsController, DocsController)
 childContainer.registerSingleton(tokens.PostgreSQLClient, PostgreSQLClient)
+container.register<HttpClient>(tokens.HttpClient, {
+	useFactory: () => new HttpClient(String(process.env.API_URL))
+});
 
 // Order
 import OrderRepository from '@domain/order/infrastructure/OrderRepository'
+import ExternalOrderRepository from '@domain/order/infrastructure/ExternalOrderRepository'
 import OrderService from '@domain/order/services/OrderService'
 import OrderAppService from '@application/order/OrderAppService'
 import GetAllOrdersController from '@presentation/http/controllers/order/GetAllOrdersController'
@@ -23,11 +32,15 @@ import GetOneOrderController from '@presentation/http/controllers/order/GetOneOr
 import CreateOrderController from '@presentation/http/controllers/order/CreateOrderController'
 import UpdateOrderController from '@presentation/http/controllers/order/UpdateOrderController'
 import DeleteOrderController from '@presentation/http/controllers/order/DeleteOrderController'
+import RunOrderJobController from '@presentation/http/controllers/order/RunOrderJobController'
+import OrderJobAppService from '@application/order/OrderJobAppService'
 import { OrderRouter } from '@presentation/http/routes/OrderRouter'
 
 childContainer.registerSingleton(tokens.OrderRepository, OrderRepository)
+childContainer.registerSingleton(tokens.ExternalOrderRepository, ExternalOrderRepository)
 childContainer.registerSingleton(tokens.OrderService, OrderService)
 childContainer.registerSingleton(tokens.OrderAppService, OrderAppService)
+childContainer.registerSingleton(tokens.OrderJobAppService, OrderJobAppService)
 childContainer.registerSingleton(
 	tokens.GetAllOrdersController,
 	GetAllOrdersController
@@ -47,6 +60,10 @@ childContainer.registerSingleton(
 childContainer.registerSingleton(
 	tokens.DeleteOrderController,
 	DeleteOrderController
+)
+childContainer.registerSingleton(
+	tokens.RunOrderJobController,
+	RunOrderJobController
 )
 childContainer.registerSingleton(tokens.OrderRouter, OrderRouter)
 

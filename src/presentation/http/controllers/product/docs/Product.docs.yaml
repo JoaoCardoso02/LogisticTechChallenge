@@ -15,7 +15,7 @@ paths:
     post:
       tags:
         - Product
-      summary: crate an product
+      summary: create an product
       produces:
       - application/json
       parameters:

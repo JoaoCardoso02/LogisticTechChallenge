@@ -31,7 +31,8 @@ const makeSut = () => {
 	}
 }
 
-const id = 'uuid'
+const id = 'ec12555f-44bc-4bfb-8f98-94053f2c73a2'
+const orderId = 'eecfba8f-ebaf-433a-9f14-413d7cebf804'
 
 describe('ProductRepository', () => {
 	it('should create an ProductRepository instance successfully', () => {
@@ -78,7 +79,7 @@ describe('ProductRepository', () => {
 
 	describe('GetOne', () => {
 
-		it('should create an product and returns it', async () => {
+		it('should returns a product successfully', async () => {
 			const { sut, postgreSQLClientStub } = makeSut()
 
 			const findOneBySpy = jest.spyOn(postgreSQLClientStub, 'findOneBy')
@@ -191,6 +192,43 @@ describe('ProductRepository', () => {
 				.mockRejectedValue(new Error('some error'))
 
 			const result = sut.delete(id)
+
+			await expect(result).rejects.toThrow()
+		})
+	})
+
+	describe('Delete By Order Id', () => {
+		it('should delete all products by order id successfully', async () => {
+			const { sut, postgreSQLClientStub } = makeSut()
+
+			const deleteSpy = jest.spyOn(postgreSQLClientStub, 'delete')
+
+			const result = await sut.deleteByOrderId(orderId)
+
+			expect(deleteSpy).toBeCalledWith({ orderId })
+			expect(result).toEqual(true)
+		})
+
+		it('should return false if no product is deleted', async () => {
+			const { sut, postgreSQLClientStub } = makeSut()
+
+			jest
+				.spyOn(postgreSQLClientStub, 'delete')
+				.mockResolvedValue(productFailDeleteRawMock)
+
+			const result = await sut.deleteByOrderId(orderId)
+
+			expect(result).toEqual(false)
+		})
+
+		it('should throw if delete method fails', async () => {
+			const { sut, postgreSQLClientStub } = makeSut()
+
+			jest
+				.spyOn(postgreSQLClientStub, 'delete')
+				.mockRejectedValue(new Error('some error'))
+
+			const result = sut.deleteByOrderId(orderId)
 
 			await expect(result).rejects.toThrow()
 		})

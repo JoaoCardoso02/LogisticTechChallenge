@@ -1,19 +1,24 @@
 export const tokens = {
 	// Global
 	Routes: Symbol('Routes'),
+	CronJob: Symbol('CronJob'),
 	DocsService: Symbol('DocsService'),
 	DocsController: Symbol('DocsController'),
 	PostgreSQLClient: Symbol('PostgreSQLClient'),
+	HttpClient: Symbol('HttpClient'),
 
 	// Order
 	OrderRepository: Symbol('OrderRepository'),
+	ExternalOrderRepository: Symbol('ExternalOrderRepository'),
 	OrderService: Symbol('OrderService'),
 	OrderAppService: Symbol('OrderAppService'),
+	OrderJobAppService: Symbol('OrderJobAppService'),
 	GetAllOrdersController: Symbol('GetAllOrdersController'),
 	GetOneOrderController: Symbol('GetOneOrderController'),
 	CreateOrderController: Symbol('CreateOrderController'),
 	UpdateOrderController: Symbol('UpdateOrderController'),
 	DeleteOrderController: Symbol('DeleteOrderController'),
+	RunOrderJobController: Symbol('RunOrderJobController'),
 	OrderRouter: Symbol('OrderRouter'),
 
 	// Location

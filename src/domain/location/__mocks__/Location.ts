@@ -1,19 +1,19 @@
 export const locationMock = {
-	id: 'uuid',
+	id: '3a27425c-5f6d-4ae3-a458-cfb9843521f9',
 	address: 'fake address',
 	contactName: 'fake name',
 	contactPhone: 'fake phone',
 }
 
 export const locationGotMock = {
-	id: 'uuid',
+	id: '3a27425c-5f6d-4ae3-a458-cfb9843521f9',
 	address: 'fake address',
 	contactName: 'fake name',
 	contactPhone: 'fake phone',
 }
 
 export const locationUpdatedMock = {
-	id: 'uuid',
+	id: '3a27425c-5f6d-4ae3-a458-cfb9843521f9',
 	address: 'fake address to update',
 	contactName: 'fake name to update',
 	contactPhone: 'fake phone to update',

@@ -31,7 +31,8 @@ const makeSut = () => {
 	}
 }
 
-const id = 'uuid'
+const id = 'e3a70305-bb00-4019-b8f7-6d8ba7561849'
+const externalId = 'efbcdc7d-7d95-4300-bbb3-956cbaa77e3f'
 
 describe('OrderRepository', () => {
 	it('should create an OrderRepository instance successfully', () => {
@@ -78,7 +79,7 @@ describe('OrderRepository', () => {
 
 	describe('GetOne', () => {
 
-		it('should create an order and returns it', async () => {
+		it('should returns a order successfully', async () => {
 			const { sut, postgreSQLClientStub } = makeSut()
 
 			const findOneSpy = jest.spyOn(postgreSQLClientStub, 'findOne')
@@ -87,7 +88,7 @@ describe('OrderRepository', () => {
 
 			expect(findOneSpy).toBeCalledWith({
 				where: { id },
-				relations: { origin: true, destination: true, products: true }
+				relations: { pickup: true, destination: true, items: true }
 			})
 			expect(result).toEqual(orderMock)
 		})
@@ -103,7 +104,40 @@ describe('OrderRepository', () => {
 
 			expect(findOneSpy).toBeCalledWith({
 				where: { id },
-				relations: { origin: true, destination: true, products: true }
+				relations: { pickup: true, destination: true, items: true }
+			})
+			await expect(result).rejects.toThrow()
+		})
+	})
+
+	describe('GetOneByExternalId', () => {
+
+		it('should returns an order successfully', async () => {
+			const { sut, postgreSQLClientStub } = makeSut()
+
+			const findOneSpy = jest.spyOn(postgreSQLClientStub, 'findOne')
+
+			const result = await sut.getOneByExternalId(externalId)
+
+			expect(findOneSpy).toBeCalledWith({
+				where: { externalId },
+				relations: { pickup: true, destination: true, items: true }
+			})
+			expect(result).toEqual(orderMock)
+		})
+
+		it('should throw if findOne method fails', async () => {
+			const { sut, postgreSQLClientStub } = makeSut()
+
+			const findOneSpy = jest
+				.spyOn(postgreSQLClientStub, 'findOne')
+				.mockRejectedValue(new Error('some error'))
+
+			const result = sut.getOneByExternalId(externalId)
+
+			expect(findOneSpy).toBeCalledWith({
+				where: { externalId },
+				relations: { pickup: true, destination: true, items: true }
 			})
 			await expect(result).rejects.toThrow()
 		})

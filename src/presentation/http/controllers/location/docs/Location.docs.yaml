@@ -14,7 +14,7 @@ paths:
     post:
       tags:
         - Location
-      summary: crate an location
+      summary: create an location
       produces:
       - application/json
       parameters:

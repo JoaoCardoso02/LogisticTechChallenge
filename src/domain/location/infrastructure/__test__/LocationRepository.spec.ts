@@ -31,8 +31,7 @@ const makeSut = () => {
 	}
 }
 
-const id = 'uuid'
-id;
+const id = 'd6104242-556e-45b2-9434-612929e2361a'
 
 describe('LocationRepository', () => {
 	it('should create an LocationRepository instance successfully', () => {
@@ -79,7 +78,7 @@ describe('LocationRepository', () => {
 
 	describe('GetOne', () => {
 
-		it('should create an location and returns it', async () => {
+		it('should returns a location successfully', async () => {
 			const { sut, postgreSQLClientStub } = makeSut()
 
 			const findOneBySpy = jest.spyOn(postgreSQLClientStub, 'findOneBy')

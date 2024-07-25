@@ -27,11 +27,19 @@ export default class ProductService implements IProductService {
 		return await this.productRepository.create(product)
 	}
 
+	async createMany(products: ICreateProduct[]): Promise<Product[]> {
+		return await this.productRepository.createMany(products)
+	}
+
 	async update(id: string, product: IUpdateProduct): Promise<Product | null> {
 		return await this.productRepository.update(id, product)
 	}
 
 	async delete(id: string): Promise<boolean> {
 		return await this.productRepository.delete(id)
+	}
+
+	async deleteByOrderId(orderId: string): Promise<boolean> {
+		return await this.productRepository.deleteByOrderId(orderId)
 	}
 }
