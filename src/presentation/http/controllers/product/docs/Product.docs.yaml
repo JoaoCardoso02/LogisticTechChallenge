@@ -1,0 +1,135 @@
+
+paths:
+  /api/v1/products/:
+    get:
+      tags:
+        - Product
+      summary: get all products
+      produces:
+      - application/json
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/products'
+          description: A list of objects with user details
+    post:
+      tags:
+        - Product
+      summary: crate an product
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body to create an product
+        schema:
+          $ref: '#/definitions/createProduct' 
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/product'
+          description: An object with product details
+  /api/v1/products/{id}:
+    get:
+      tags:
+        - Product
+      summary: get one product by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/product'
+          description: An object with user details
+    patch:
+      tags:
+        - Product
+      summary: update an product by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+      - in: body
+        name: body to update an product
+        schema:
+          $ref: '#/definitions/createProduct'
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/product'
+          description: An object with user details updated
+    delete:
+      tags:
+        - Product
+      summary: delete an product by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+      responses:
+        204:
+          description: The product was deleted successfully
+definitions:
+  product:
+    type: object
+    properties:
+      id:
+        type: string
+        example: cf11cb86-96c5-420c-b523-a084d03bd4f4
+      orderId:
+        type: string
+        example: 815fc4f5-8c72-49c7-8998-d72bcc6777e5
+      type:
+        type: string
+        example: PALLET
+      length:
+        type: number
+        example: 10
+      width:
+        type: number
+        example: 10
+      height:
+        type: number
+        example: 10
+      weight:
+        type: number
+        example: 10
+  products:
+    type: array
+    items:
+      type: object
+      $ref: '#/definitions/product'
+  createProduct:
+    type: object
+    properties:
+      orderId:
+        type: string
+        example: 815fc4f5-8c72-49c7-8998-d72bcc6777e5
+      type:
+        type: string
+        example: PALLET
+      length:
+        type: number
+        example: 10
+      width:
+        type: number
+        example: 10
+      height:
+        type: number
+        example: 10
+      weight:
+        type: number
+        example: 10

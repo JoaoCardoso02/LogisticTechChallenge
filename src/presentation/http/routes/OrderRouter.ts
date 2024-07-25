@@ -1,9 +1,12 @@
-import { tokens } from '@di/tokens'
-import BaseController from '@shared/http/controller/BaseController'
-import { inject, injectable } from 'tsyringe'
-import { IRouter } from './IRouter'
-import BaseRouter from '@shared/http/controller/BaseRouter'
 import { Router } from 'express'
+
+import BaseRouter from '@shared/http/controller/BaseRouter'
+import BaseController from '@shared/http/controller/BaseController'
+
+import { tokens } from '@di/tokens'
+import { inject, injectable } from 'tsyringe'
+
+import { IRouter } from './IRouter'
 
 @injectable()
 export class OrderRouter extends BaseRouter implements IRouter {

@@ -1,0 +1,116 @@
+paths:
+  /api/v1/locations/:
+    get:
+      tags:
+        - Location
+      summary: get all locations
+      produces:
+      - application/json
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/locations'
+          description: A list of objects with user details
+    post:
+      tags:
+        - Location
+      summary: crate an location
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body to create an location
+        schema:
+          $ref: '#/definitions/createLocation' 
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/location'
+          description: An object with location details
+  /api/v1/locations/{id}:
+    get:
+      tags:
+        - Location
+      summary: get one location by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/location'
+          description: An object with user details
+    patch:
+      tags:
+        - Location
+      summary: update an location by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+      - in: body
+        name: body to update an location
+        schema:
+          $ref: '#/definitions/createLocation'
+      responses:
+        201:
+          schema:
+            $ref: '#/definitions/location'
+          description: An object with user details updated
+    delete:
+      tags:
+        - Location
+      summary: delete an location by id
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+      responses:
+        204:
+          description: The location was deleted successfully
+definitions:
+  location:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 3a27425c-5f6d-4ae3-a458-cfb9843521f9
+      address:
+        type: string
+        example: Susannah Rapids, North Manuelhaven, FL
+      contactName:
+        type: string
+        example: John Doe
+      contactPhone:
+        type: string
+        example: 87631231234
+  locations:
+    type: array
+    items:
+      type: object
+      $ref: '#/definitions/location'
+  createLocation:
+    type: object
+    properties:
+      address:
+        type: string
+        example: Susannah Rapids, North Manuelhaven, FL
+      contactName:
+        type: string
+        example: John Doe
+      contactPhone:
+        type: string
+        example: 87631231234

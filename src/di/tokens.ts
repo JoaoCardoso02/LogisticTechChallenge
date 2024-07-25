@@ -19,8 +19,22 @@ export const tokens = {
 	// Location
 	LocationRepository: Symbol('LocationRepository'),
 	LocationService: Symbol('LocationService'),
+	LocationAppService: Symbol('LocationAppService'),
+	GetAllLocationsController: Symbol('GetAllLocationsController'),
+	GetOneLocationController: Symbol('GetOneLocationController'),
+	CreateLocationController: Symbol('CreateLocationController'),
+	UpdateLocationController: Symbol('UpdateLocationController'),
+	DeleteLocationController: Symbol('DeleteLocationController'),
+	LocationRouter: Symbol('OrderRouter'),
 
 	// Product
 	ProductRepository: Symbol('ProductRepository'),
 	ProductService: Symbol('ProductService'),
+	ProductAppService: Symbol('ProductAppService'),
+	GetAllProductsController: Symbol('GetAllProductsController'),
+	GetOneProductController: Symbol('GetOneProductController'),
+	CreateProductController: Symbol('CreateProductController'),
+	UpdateProductController: Symbol('UpdateProductController'),
+	DeleteProductController: Symbol('DeleteProductController'),
+	ProductRouter: Symbol('ProductRouter'),
 }

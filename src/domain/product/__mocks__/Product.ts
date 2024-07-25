@@ -40,8 +40,7 @@ export const productToUpdateMock = {
 	width: 30,
 	height: 40,
 	weight: 50,
-	orderId: '211ec8e5-fa11-4290-b15b-cc24cd804b5f',
-	order: {} as OrderEntity
+	orderId: '211ec8e5-fa11-4290-b15b-cc24cd804b5f'
 }
 
 export const productToCreateMock = {
@@ -51,7 +50,6 @@ export const productToCreateMock = {
 	height: 30,
 	weight: 40,
 	orderId: '211ec8e5-fa11-4290-b15b-cc24cd804b5f',
-	order: {} as OrderEntity
 }
 
 export const productDeletedRawMock = {

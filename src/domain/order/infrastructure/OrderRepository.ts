@@ -23,7 +23,10 @@ export default class OrderRepository implements IOrderRepository {
 	}
 
 	async getOne(id: string): Promise<Order | null> {
-		return await this.client.findOneBy({ id })
+		return await this.client.findOne({
+			where: { id },
+			relations: { origin: true, destination: true, products: true }
+		})
 	}
 
 	async create(order: ICreateOrder): Promise<Order> {

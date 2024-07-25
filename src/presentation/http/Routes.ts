@@ -10,6 +10,12 @@ export class Routes {
 		@inject(tokens.OrderRouter)
 		private orderRouter: IRouter,
 
+		@inject(tokens.LocationRouter)
+		private locationRouter: IRouter,
+
+		@inject(tokens.ProductRouter)
+		private productRouter: IRouter,
+
 		@inject(tokens.DocsController)
 		private docsController: DocsController
 	) {}
@@ -19,5 +25,7 @@ export class Routes {
 		router.get('/api/docs', this.docsController.makeDocs)
 
 		router.use('/api', this.orderRouter.setup())
+		router.use('/api', this.locationRouter.setup())
+		router.use('/api', this.productRouter.setup())
 	}
 }
