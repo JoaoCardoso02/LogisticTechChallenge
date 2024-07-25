@@ -98,9 +98,36 @@ definitions:
       contactPhone:
         type: string
         example: 87631231234
+  product:
+    type: object
+    properties:
+      id:
+        type: string
+        example: cf11cb86-96c5-420c-b523-a084d03bd4f4
+      orderId:
+        type: string
+        example: 815fc4f5-8c72-49c7-8998-d72bcc6777e5
+      type:
+        type: string
+        example: PALLET
+      length:
+        type: number
+        example: 10
+      width:
+        type: number
+        example: 10
+      height:
+        type: number
+        example: 10
+      weight:
+        type: number
+        example: 10
   order:
     type: object
     properties:
+      id:
+        type: string
+        example: cd81cba7-6b37-4360-98bb-429e0f8c2528
       type:
         type: string
         example: ELETRONICS
@@ -113,9 +140,11 @@ definitions:
       destination:
         type: object
         $ref: '#/definitions/location'
-      id:
-        type: string
-        example: cd81cba7-6b37-4360-98bb-429e0f8c2528
+      products:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/product'
   orders:
     type: array
     items:

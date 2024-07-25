@@ -1,6 +1,7 @@
 import LocationEntity from '@domain/location/entities/Location'
+import ProductEntity from '@domain/product/entities/Product';
 import { Exclude } from 'class-transformer';
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({ name: 'order' })
 export default class OrderEntity {
@@ -28,4 +29,7 @@ export default class OrderEntity {
 	@OneToOne(() => LocationEntity, (location) => location.id)
 	@JoinColumn({ name: 'destination_id' })
 	destination: LocationEntity
+
+	@OneToMany(() => ProductEntity, (product) => product.order, { eager: true })
+	products: ProductEntity[]
 }

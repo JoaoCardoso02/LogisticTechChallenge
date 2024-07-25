@@ -19,4 +19,8 @@ export const tokens = {
 	// Location
 	LocationRepository: Symbol('LocationRepository'),
 	LocationService: Symbol('LocationService'),
+
+	// Product
+	ProductRepository: Symbol('ProductRepository'),
+	ProductService: Symbol('ProductService'),
 }

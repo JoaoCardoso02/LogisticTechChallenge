@@ -1,4 +1,5 @@
 import { locationMock } from '@domain/location/__mocks__/Location'
+import { productMock } from '@domain/product/__mocks__/Product'
 
 export const orderMock = {
 	id: 'uuid',
@@ -8,6 +9,7 @@ export const orderMock = {
 	destinationId: "3a27425c-5f6d-4ae3-a458-cfb9843521f9",
 	origin: locationMock,
 	destination: locationMock,
+	products: [productMock]
 }
 
 export const orderGotMock = {
@@ -18,6 +20,7 @@ export const orderGotMock = {
 	destinationId: "3a27425c-5f6d-4ae3-a458-cfb9843521f9",
 	origin: locationMock,
 	destination: locationMock,
+	products: [productMock]
 }
 
 export const orderUpdatedMock = {
@@ -28,6 +31,7 @@ export const orderUpdatedMock = {
 	destinationId: "3a27425c-5f6d-4ae3-a458-cfb9843521f9",
 	origin: locationMock,
 	destination: locationMock,
+	products: [productMock]
 }
 
 export const orderToUpdateMock = {

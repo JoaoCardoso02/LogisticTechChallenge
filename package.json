@@ -18,9 +18,9 @@
     "lint:check": "eslint -c .eslintrc --ext .ts src",
     "lint:fix": "eslint -c .eslintrc --fix --ext .ts src",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/infrastructure/postgresql/PostgreSQLConnection.ts",
-    "migration:up": "typeorm-ts-node-commonjs migration:run -d src/infrastructure/postgresql/PostgreSQLConnection.ts",
-    "migration:down": "typeorm-ts-node-commonjs migration:revert -d src/infrastructure/postgresql/PostgreSQLConnection.ts",
+    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d src/infrastructure/postgresql/PostgreSQLConnection.ts",
+    "migration:up": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/infrastructure/postgresql/PostgreSQLConnection.ts",
+    "migration:down": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d src/infrastructure/postgresql/PostgreSQLConnection.ts",
     "prepare": "husky install"
   },
   "author": "",
