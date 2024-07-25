@@ -9,6 +9,7 @@ Beyond the API, it also has a CRON JOB that runs at each 1 minute to fetch new o
 - ``npm install``
 - ``npm run migration:up``
 - ``npm run dev``
+- Check the API documentation [here](http://localhost:3000/api/docs)
 
 ### How to run the tests?
 
