@@ -12,7 +12,7 @@ import {
 const makePostgreSQLClient = () => {
 	const PostgreSQLClientStub = jest.fn().mockImplementation(() => ({
 		find: jest.fn().mockResolvedValue([orderGotMock]),
-		findOneBy: jest.fn().mockResolvedValue(orderGotMock),
+		findOne: jest.fn().mockResolvedValue(orderGotMock),
 		save: jest.fn().mockResolvedValue(orderMock),
 		update: jest.fn(),
 		delete: jest.fn().mockResolvedValue(orderDeletedRawMock),
@@ -81,24 +81,30 @@ describe('OrderRepository', () => {
 		it('should create an order and returns it', async () => {
 			const { sut, postgreSQLClientStub } = makeSut()
 
-			const findOneBySpy = jest.spyOn(postgreSQLClientStub, 'findOneBy')
+			const findOneSpy = jest.spyOn(postgreSQLClientStub, 'findOne')
 
 			const result = await sut.getOne(id)
 
-			expect(findOneBySpy).toBeCalledWith({ id })
+			expect(findOneSpy).toBeCalledWith({
+				where: { id },
+				relations: { origin: true, destination: true, products: true }
+			})
 			expect(result).toEqual(orderMock)
 		})
 
 		it('should throw if findOne method fails', async () => {
 			const { sut, postgreSQLClientStub } = makeSut()
 
-			const findOneBySpy = jest
-				.spyOn(postgreSQLClientStub, 'findOneBy')
+			const findOneSpy = jest
+				.spyOn(postgreSQLClientStub, 'findOne')
 				.mockRejectedValue(new Error('some error'))
 
 			const result = sut.getOne(id)
 
-			expect(findOneBySpy).toBeCalledWith({ id })
+			expect(findOneSpy).toBeCalledWith({
+				where: { id },
+				relations: { origin: true, destination: true, products: true }
+			})
 			await expect(result).rejects.toThrow()
 		})
 	})
