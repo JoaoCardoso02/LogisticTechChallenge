@@ -48,7 +48,8 @@ export class CreateProductTable1721861470596 implements MigrationInterface {
             new TableForeignKey({
                 columnNames: ['order_id'],
                 referencedTableName: 'order',
-                referencedColumnNames: ['id']
+                referencedColumnNames: ['id'],
+                onDelete: 'CASCADE'
             })
         )
     }

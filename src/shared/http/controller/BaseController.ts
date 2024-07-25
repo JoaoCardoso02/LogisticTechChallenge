@@ -2,14 +2,15 @@ import { IRequest } from '@presentation/http/types/IRequest'
 import { BaseError } from '@shared/exceptions/BaseError'
 import { InternalException } from '@shared/exceptions/InternalException'
 import { HttpResponse } from '@shared/http/interfaces/IHttpResponse'
+import { instanceToPlain } from 'class-transformer';
 
 export default abstract class BaseController {
 	abstract execute(request: IRequest): Promise<HttpResponse>
 
 	send(data: unknown) {
-		return {
+		return instanceToPlain({
 			data: data,
-		}
+		})
 	}
 
 	sendStatus(status: number) {

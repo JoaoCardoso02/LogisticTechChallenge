@@ -83,43 +83,56 @@ paths:
         204:
           description: The order was deleted successfully
 definitions:
+  location:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 3a27425c-5f6d-4ae3-a458-cfb9843521f9
+      address:
+        type: string
+        example: Susannah Rapids, North Manuelhaven, FL
+      contactName:
+        type: string
+        example: John Doe
+      contactPhone:
+        type: string
+        example: 87631231234
   order:
     type: object
     properties:
       type:
         type: string
-        order: ELETRONICS
+        example: ELETRONICS
       weight:
         type: number
-        order: 20
-      originId:
-        type: string
-        order: 1
-      destinationId:
-        type: string
-        order: 2
+        example: 20
+      origin:
+        type: object
+        $ref: '#/definitions/location'
+      destination:
+        type: object
+        $ref: '#/definitions/location'
       id:
-        type: number
-        order: 1
+        type: string
+        example: cd81cba7-6b37-4360-98bb-429e0f8c2528
   orders:
     type: array
     items:
       type: object
-      properties:
-        schema:
-          $ref: '#/definitions/order'
+      $ref: '#/definitions/order'
   createOrder:
     type: object
     properties:
       type:
         type: string
-        order: ELETRONICS
+        example: ELETRONICS
       weight:
         type: number
-        order: 20
+        example: 20
       originId:
         type: string
-        order: 1
+        example: 3a27425c-5f6d-4ae3-a458-cfb9843521f9
       destinationId:
         type: string
-        order: 2
+        example: 3a27425c-5f6d-4ae3-a458-cfb9843521f9

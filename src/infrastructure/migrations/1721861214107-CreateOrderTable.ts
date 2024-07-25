@@ -43,7 +43,8 @@ export class CreateOrderTable1721861214107 implements MigrationInterface {
             new TableForeignKey({
                 columnNames: ['origin_id'],
                 referencedTableName: 'location',
-                referencedColumnNames: ['id']
+                referencedColumnNames: ['id'],
+                onDelete: 'CASCADE'
             })
         )
 
@@ -52,7 +53,8 @@ export class CreateOrderTable1721861214107 implements MigrationInterface {
             new TableForeignKey({
                 columnNames: ['destination_id'],
                 referencedTableName: 'location',
-                referencedColumnNames: ['id']
+                referencedColumnNames: ['id'],
+                onDelete: 'CASCADE'
             })
         )
     }
